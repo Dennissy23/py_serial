@@ -57,7 +57,7 @@ def read_serial_data(port, baud_rate, mac, filename):
                         
                         if hex_sub_data[33:50] in mac and hex_sub_data[10:11] == '0':
                             rssi = hex_to_signed_decimal(hex_sub_data[6:8])
-                            timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+                            timestamp = time.time()
                             beacon = [timestamp,rssi,hex_sub_data[33:50]]
                             csv_writer.writerow(beacon)
 

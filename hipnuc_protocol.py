@@ -173,7 +173,7 @@ def _parse_data_packet_0x91(data_section:list,node_num = None):
     quat_temp_list = []
 
     ##time
-    time_now = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
+    time_now = time.time()
     time_now_dict = {
         "time":time_now
     } 
