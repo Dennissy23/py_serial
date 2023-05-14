@@ -3,7 +3,7 @@ from hipnuc_module import *
 import datetime
 import os
 
-time = datetime.now().strftime("%Y-%m-%d %H%M")
+time = datetime.datetime.now().strftime("%Y-%m-%d %H%M")
 # 获取当前文件所在目录的绝对路径
 current_dir = os.path.abspath(os.path.dirname(__file__))
 # 获取上两级目录的绝对路径
@@ -14,7 +14,7 @@ log_file = parent_dir
 
 if __name__ == '__main__':
 
-    m_IMU = hipnuc_module('\config.json')
+    m_IMU = hipnuc_module('config.json')
     print("Press Ctrl-C to terminate while statement.")
 
 try: 

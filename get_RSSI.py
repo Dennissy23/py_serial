@@ -4,7 +4,7 @@ import datetime
 import csv
 import os
 
-time = datetime.now().strftime("%Y-%m-%d %H%M")
+time = datetime.datetime.now().strftime("%Y-%m-%d %H%M")
 # 获取当前文件所在目录的绝对路径
 current_dir = os.path.abspath(os.path.dirname(__file__))
 # 获取上两级目录的绝对路径
@@ -21,7 +21,7 @@ with open('信标数据.csv', 'r') as file:
 		mac.append(row[1])
 
 stop_flag = threading.Event()
-port = "COM10"
+port = "COM3"
 baud_rate = 115200
 timestamp = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
 file = parent_dir
