@@ -1,13 +1,20 @@
 # -*- coding: utf-8 -*-
 from hipnuc_module import *
 import datetime
+import os
 
-timestamp = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-log_file = f'dataset\IMU_{timestamp}.csv'
+time = datetime.now().strftime("%Y-%m-%d %H%M")
+# 获取当前文件所在目录的绝对路径
+current_dir = os.path.abspath(os.path.dirname(__file__))
+# 获取上两级目录的绝对路径
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir)) 
+parent_dir = os.path.abspath(os.path.join(parent_dir, os.pardir)) + f'\数据\串口采集数据\IMU_{time}.csv'
+
+log_file = parent_dir
 
 if __name__ == '__main__':
 
-    m_IMU = hipnuc_module(r'C:\\Users\\Administrator\\Desktop\\WSN+IMU定位\\代码\\py_serial\\PYTHON\\config.json')
+    m_IMU = hipnuc_module('\config.json')
     print("Press Ctrl-C to terminate while statement.")
 
 try: 

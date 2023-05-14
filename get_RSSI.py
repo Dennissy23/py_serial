@@ -2,6 +2,14 @@ import BLE
 import threading
 import datetime
 import csv
+import os
+
+time = datetime.now().strftime("%Y-%m-%d %H%M")
+# 获取当前文件所在目录的绝对路径
+current_dir = os.path.abspath(os.path.dirname(__file__))
+# 获取上两级目录的绝对路径
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir)) 
+parent_dir = os.path.abspath(os.path.join(parent_dir, os.pardir)) + f'\数据\串口采集数据\RSSI_{time}.csv'
 
 mac = [] 
 with open('信标数据.csv', 'r') as file:
@@ -16,7 +24,7 @@ stop_flag = threading.Event()
 port = "COM10"
 baud_rate = 115200
 timestamp = datetime.datetime.now().strftime('%Y_%m_%d_%H_%M_%S')
-file = f'dataset\RSSI_{timestamp}.csv'
+file = parent_dir
 print('Begin')
 
 BLE.read_serial_data(port, baud_rate,mac,file)

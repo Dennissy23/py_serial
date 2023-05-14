@@ -1,19 +1,29 @@
 import tkinter as tk
 from datetime import datetime
 from tkinter import font
+import os
+
+time = datetime.now().strftime("%Y-%m-%d %H%M")
+# 获取当前文件所在目录的绝对路径
+current_dir = os.path.abspath(os.path.dirname(__file__))
+# 获取上两级目录的绝对路径
+parent_dir = os.path.abspath(os.path.join(current_dir, os.pardir)) 
+parent_dir = os.path.abspath(os.path.join(parent_dir, os.pardir)) + f'\数据\串口采集数据\{time}.txt'
+
 
 timestamps = []  # 用于保存时间戳的列表
 
 def save_timestamp():
     timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S.%f")
+    
     timestamps.append(timestamp)  # 将时间戳添加到列表中
     print("时间戳已保存。")
 
 def write_to_file():
-    with open("timestamp.txt", "w") as file:
+    with open( parent_dir, "w") as file:
         for timestamp in timestamps:
             file.write(timestamp + "\n")
-    print("时间戳已保存至 timestamp.txt 文件。")
+    print("时间戳已保存至文件。")
 
 # 创建主窗口
 window = tk.Tk()
