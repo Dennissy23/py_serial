@@ -3,6 +3,9 @@ from hipnuc_module import *
 import datetime
 import os
 
+## IMU指令
+## AT+INFO=HSI
+
 time = datetime.datetime.now().strftime("%Y-%m-%d %H%M")
 # 获取当前文件所在目录的绝对路径
 current_dir = os.path.abspath(os.path.dirname(__file__))

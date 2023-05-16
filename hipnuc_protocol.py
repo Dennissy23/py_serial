@@ -192,7 +192,7 @@ def _parse_data_packet_0x91(data_section:list,node_num = None):
     #timestamp
     timestamp = int(struct.unpack("<I", bytes(data_section[pos:pos + 4]))[0])
     timestamp_dic = {
-        "(s)":round(timestamp/1000,3)
+        "(ms)":timestamp
     } 
 
     timestamp_temp_list.append(timestamp_dic)
@@ -205,9 +205,9 @@ def _parse_data_packet_0x91(data_section:list,node_num = None):
     acc_Z = float(struct.unpack("<f", bytes(data_section[pos:pos + 4]))[0])
     pos += 4
     acc_dic = {
-        "X":round(acc_X,3),
-        "Y":round(acc_Y,3),
-        "Z":round(acc_Z,3)
+        "X":round(acc_X,9),
+        "Y":round(acc_Y,9),
+        "Z":round(acc_Z,9)
     }
     acc_temp_list.append(acc_dic)
     #gyr
@@ -218,9 +218,9 @@ def _parse_data_packet_0x91(data_section:list,node_num = None):
     gyr_Z = float(struct.unpack("<f", bytes(data_section[pos:pos + 4]))[0])
     pos += 4
     gyr_dic = {
-        "X": round(gyr_X,3),
-        "Y": round(gyr_Y,3),
-        "Z": round(gyr_Z,3)
+        "X": round(gyr_X,9),
+        "Y": round(gyr_Y,9),
+        "Z": round(gyr_Z,9)
     }
     gyr_temp_list.append(gyr_dic)
     #mag
@@ -244,9 +244,9 @@ def _parse_data_packet_0x91(data_section:list,node_num = None):
     eul_Yaw = float(struct.unpack("<f", bytes(data_section[pos:pos + 4]))[0])
     pos += 4
     eul_dic = {
-        "Roll": round(eul_Roll, 2),
-        "Pitch": round(eul_Pitch, 2),
-        "Yaw": round(eul_Yaw, 2) 
+        "Roll": round(eul_Roll, 9),
+        "Pitch": round(eul_Pitch, 9),
+        "Yaw": round(eul_Yaw, 9) 
     }
     eul_temp_list.append(eul_dic)
 
@@ -260,10 +260,10 @@ def _parse_data_packet_0x91(data_section:list,node_num = None):
     quat_Z = float(struct.unpack("<f", bytes(data_section[pos:pos + 4]))[0])
     pos += 4
     quat_dic = {
-        "W": round(quat_W,3),
-        "X": round(quat_X,3),
-        "Y": round(quat_Y,3),
-        "Z": round(quat_Z,3),
+        "W": round(quat_W,9),
+        "X": round(quat_X,9),
+        "Y": round(quat_Y,9),
+        "Z": round(quat_Z,9),
     }
     quat_temp_list.append(quat_dic)
 
