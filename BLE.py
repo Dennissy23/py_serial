@@ -3,6 +3,7 @@ import threading
 import datetime
 import time
 import csv
+import os
 
 def hex_to_signed_decimal(hex_str, num_bits=8):
     # 首先将16进制字符串转换为整数
@@ -68,3 +69,27 @@ def read_serial_data(port, baud_rate, mac, filename):
         print("Terminating...")
     finally:
         ser.close()
+
+
+def read_from_port(port, baud_rate,filename):
+    serial_port = serial.Serial(port,baud_rate , timeout=1)
+    try:
+        with open(filename, 'w', newline='') as csvfile:
+            csv_writer = csv.writer(csvfile)
+            while True:
+                if serial_port.in_waiting > 0:
+                    # 读取一行数据，使用decode()方法将bytes转换为str
+                    line = serial_port.readline().decode('ascii')
+                    timestemps = time.time()
+                    data = line.split(',')
+                    if data[0] == '$GPGGA':
+                        gnss_data = [timestemps,data[1],data[2],data[4],data[9]]
+                        csv_writer.writerow(gnss_data)
+                        csvfile.flush()
+                        os.fsync(csvfile.fileno())
+                        print(gnss_data)
+        
+    except KeyboardInterrupt:
+        print("Terminating...")
+    finally:
+        serial_port.close()

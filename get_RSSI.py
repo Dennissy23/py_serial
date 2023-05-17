@@ -21,10 +21,10 @@ with open('信标数据.csv', 'r') as file:
 		mac.append(row[1])
 
 stop_flag = threading.Event()
-port = "COM10"
+port = "COM4"
 baud_rate = 115200
 file = parent_dir
-print('Begin')
+print('BLE_Begin')
 
 BLE.read_serial_data(port, baud_rate,mac,file)
     
