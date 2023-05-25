@@ -32,7 +32,7 @@ def find_next_valid_start_index(buffer, start_index):
             return next_start_index
         start_index = next_start_index + 1
 
-def read_serial_data(port, baud_rate, mac, filename):
+def read_RSSI_port(port, baud_rate, mac, filename):
     ser = serial.Serial(port, baud_rate)
     buffer = bytearray()
     try:
@@ -71,7 +71,7 @@ def read_serial_data(port, baud_rate, mac, filename):
         ser.close()
 
 
-def read_from_port(port, baud_rate,filename):
+def read_GNSS_port(port, baud_rate,filename):
     serial_port = serial.Serial(port,baud_rate , timeout=1)
     try:
         with open(filename, 'w', newline='') as csvfile:
@@ -83,7 +83,7 @@ def read_from_port(port, baud_rate,filename):
                     timestemps = time.time()
                     data = line.split(',')
                     if data[0] == '$GPGGA':
-                        gnss_data = [timestemps,data[1],data[2],data[4],data[9]]
+                        gnss_data = [timestemps,float(data[1]),convert_gpgga_to_dd(data[2]),convert_gpgga_to_dd(data[4]),float(data[9])]
                         csv_writer.writerow(gnss_data)
                         csvfile.flush()
                         os.fsync(csvfile.fileno())
@@ -93,3 +93,14 @@ def read_from_port(port, baud_rate,filename):
         print("Terminating...")
     finally:
         serial_port.close()
+    
+def convert_gpgga_to_dd(gpgga_coordinate):
+    # 分离度和分
+    gpgga_coordinate = float(gpgga_coordinate)
+    degrees = int(gpgga_coordinate) // 100
+    minutes = float(gpgga_coordinate) % 100
+
+    # 转换为度（dd.dddd）
+    dd_coordinate = round(degrees + minutes / 60,7)
+
+    return dd_coordinate

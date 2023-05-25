@@ -1,4 +1,4 @@
-import BLE
+import BLE_GNSS
 import threading
 import datetime
 import csv
@@ -26,5 +26,5 @@ baud_rate = 115200
 file = parent_dir
 print('BLE_Begin')
 
-BLE.read_serial_data(port, baud_rate,mac,file)
+BLE_GNSS.read_RSSI_port(port, baud_rate,mac,file)
     

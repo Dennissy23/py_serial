@@ -3,7 +3,7 @@ import time
 import datetime
 import os
 import threading
-from BLE import read_from_port
+from BLE_GNSS import read_GNSS_port
                     
 
 time_now = datetime.datetime.now().strftime("%Y-%m-%d %H%M")
@@ -18,7 +18,7 @@ print('GNSS_begain')
 port = 'COM6'
 baud_rate = 115200
 stop_flag = threading.Event()
-read_from_port(port, baud_rate,parent_dir)
+read_GNSS_port(port, baud_rate,parent_dir)
     
 
 
